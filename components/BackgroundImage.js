@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageBackground, StyleSheet } from 'react-native';
-import IMAGE from '../assets/rn-logo.png';
+import IMAGE from '../assets/prueba.jpg';
 
 const styles = StyleSheet.create({
   image: {

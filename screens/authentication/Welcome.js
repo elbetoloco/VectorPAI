@@ -44,7 +44,7 @@ const Welcome = ({ navigation }) => (
         <Text
           style={styles.title}
         >
-          React Native Authentication using AWS Cogntio & Amplify
+          VECTORPAI usando AWS Cogntio & Amplify
         </Text>
         <View>
           <Button onPress={() => navigation.navigate('SignIn')}>

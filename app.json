@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-cognito-tutorial",
-    "slug": "rn-cognito-tutorial",
+    "name": "CognitoDemo3",
+    "slug": "CognitoDemo3",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, Alert, Text,
+  View, StyleSheet, Alert, Text, ActivityIndicator
 } from 'react-native';
 import Auth from '@aws-amplify/auth';
 import Button from '../../components/Button';
@@ -16,20 +16,30 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: 100,
   },
+  activityIndicator: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 });
 
 export default function SignIn({ navigation, signIn: signInCb }) {
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const signIn = async () => {
     if (email.length > 4 && password.length > 2) {
+      setLoading(true);
       await Auth.signIn(email, password)
         .then((user) => {
+          setLoading(false);
           signInCb(user);
         })
         .catch((err) => {
+          setLoading(false);
           if (!err.message) {
             console.log('1 Error when signing in: ', err);
             Alert.alert('Error when signing in: ', err);
@@ -50,8 +60,18 @@ export default function SignIn({ navigation, signIn: signInCb }) {
     }
   };
 
-  return (
-    <View style={styles.container}>
+
+  let view = '';
+
+  if (loading) {
+    view = (
+      <View style={styles.activityIndicator}>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
+    );
+  }else{
+    view = (
+      <View style={styles.container}>
       <Input
         value={email}
         placeholder="email@example.com"
@@ -78,6 +98,10 @@ export default function SignIn({ navigation, signIn: signInCb }) {
         Forget Password
       </Button>
     </View>
+    );
+  }
+  return (
+    view
   );
 }
 
